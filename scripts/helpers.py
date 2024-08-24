@@ -37,7 +37,6 @@ def add_user(username, password, email):
     with session_scope() as s:
         u = tabledef.User(username=username, password=password.decode('utf8'), email=email)
         s.add(u)
-        s.commit()
 
 
 def change_user(**kwargs):
@@ -47,7 +46,6 @@ def change_user(**kwargs):
         for arg, val in kwargs.items():
             if val != "":
                 setattr(user, arg, val)
-        s.commit()
 
 
 def hash_password(password):

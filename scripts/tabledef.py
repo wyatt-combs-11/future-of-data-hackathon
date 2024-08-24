@@ -43,7 +43,7 @@ class User(Base):
 class Search(Base):
     __tablename__ = "search"
 
-    searchid = Column(Integer, primary_key=True)
+    search_id = Column(Integer, primary_key=True)
     longitude = Column(Float)
     latitude = Column(Float)
 
@@ -51,7 +51,7 @@ class Search(Base):
     bycatches = relationship("Bycatch", back_populates="search")
 
     def __repr__(self):
-        return '<Search %r>' % self.searchid
+        return '<Search %r>' % self.search_id
 
 
 class Bycatch(Base):
@@ -60,7 +60,7 @@ class Bycatch(Base):
     id = Column(Integer, primary_key=True)
     fish = Column(String(50))
     index = Column(Integer)
-    searchid = Column(Integer, ForeignKey('search.searchid'))
+    search_id = Column(Integer, ForeignKey('search.search_id'))
 
     # Relationship to Search
     search = relationship("Search", back_populates="bycatches")
