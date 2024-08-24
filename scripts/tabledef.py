@@ -5,8 +5,17 @@ from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
+
+def get_database_url():
+    # Heroku being a pain
+    url = os.getenv('DATABASE_URL')
+    if url and url.startswith('postgres://'):
+        return url.replace('postgres://', 'postgresql://', 1)
+    return url
+
+
 # Heroku
-SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+SQLALCHEMY_DATABASE_URI = get_database_url()
 
 Base = declarative_base()
 
