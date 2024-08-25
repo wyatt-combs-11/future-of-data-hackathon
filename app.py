@@ -79,6 +79,16 @@ def settings():
     return redirect(url_for('login'))
 
 
+# -------- Bycatch Tracker ---------------------------------------------------------- #
+@app.route('/bycatch_tracker', methods=['GET', 'POST'])
+def bycatch_tracker():
+    if session.get('logged_in'):
+        google_maps_api_key = os.getenv('GOOGLE_MAPS_API_KEY')
+        return render_template('bycatch_tracker.html', api_key=google_maps_api_key)
+    return redirect(url_for('login'))
+
+
+
 # ======== Main ============================================================== #
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True, host="0.0.0.0")

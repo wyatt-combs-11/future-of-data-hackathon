@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "navbar.html" %}
+<section class="hero is-primary is-bold is-large">
+  <div class="hero-body">
+    <div id="map" style="height: 600px; width: 600px;"></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&&callback=initMap"></script>
+<script src="../static/js/bycatch_tracker.js"></script>
+<script src="../static/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+{% endblock %}
