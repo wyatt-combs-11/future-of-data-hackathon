@@ -27,3 +27,71 @@
 .settings-area {
   padding: 30px;
 }
+
+#legend-container {
+    height: 600px;
+    width: 80px;
+    background: linear-gradient(to top, purple, red, orange, yellow, green);
+    border: 1px solid #000;
+    position: relative;
+    margin-right: 20px;
+}
+
+.legend-label {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.label-top {
+    top: 0;
+}
+
+.label-bottom {
+    bottom: 0;
+}
+
+#pointer {
+    position: absolute;
+    left: 78%;
+    transform: translateX(10px);
+    display: flex;
+    align-items: center;
+}
+
+#pointer::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid black;
+    margin-right: 5px;
+}
+
+#pointer-value {
+    font-weight: bold;
+}
+
+.form-container {
+    background-color: #FF8559B0;
+    color: #004d40;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.fish-button {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.fish-button:hover {
+    background-color: #0056b3;
+}

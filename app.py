@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
+import logging
 
+from predict import load_prediction_model, predict_severity_matrix
 from scripts import tabledef
 from scripts import forms
 from scripts import helpers
-from flask import Flask, redirect, url_for, render_template, request, session
+from flask import Flask, redirect, url_for, render_template, request, session, jsonify
 import json
 import sys
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)  # Generic key for dev purposes only
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+load_prediction_model()
 
 # Heroku
 #from flask_heroku import Heroku
@@ -32,13 +36,13 @@ def login():
                 return json.dumps({'status': 'Invalid user/pass'})
             return json.dumps({'status': 'Both fields required'})
         return render_template('login.html', form=form)
-    user = helpers.get_user()
-    return render_template('home.html', user=user)
+    google_maps_api_key = os.getenv('GOOGLE_MAPS_API_KEY')
+    return render_template('bycatch_tracker.html', api_key=google_maps_api_key)
 
 
 @app.route("/logout")
 def logout():
-    session['logged_in'] = False
+    # session['logged_in'] = False
     return redirect(url_for('login'))
 
 
@@ -87,6 +91,22 @@ def bycatch_tracker():
         return render_template('bycatch_tracker.html', api_key=google_maps_api_key)
     return redirect(url_for('login'))
 
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    if session.get('logged_in'):
+        data = request.get_json()
+        longitude = data.get("longitude")
+        latitude = data.get("latitude")
+        app.logger.info(f"Endpoint /location hit with Longitude: {longitude}, Latitude: {latitude}")
+
+        severity_matrix = predict_severity_matrix(longitude, latitude).tolist()
+        return jsonify(prediction=severity_matrix)
+
+    app.logger.info("Predict Endpoint Attempt: Unauthorized")
+    response = jsonify({"message": "Unauthorized: User is not logged in."})
+    response.status_code = 401
+    return response
 
 
 # ======== Main ============================================================== #

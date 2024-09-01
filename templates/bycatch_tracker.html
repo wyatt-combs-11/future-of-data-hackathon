@@ -2,8 +2,40 @@
 {% block body %}
 {% include "navbar.html" %}
 <section class="hero is-primary is-bold is-large">
-  <div class="hero-body">
+  <div class="hero-body" style="display: flex; padding: 2%; gap: 3%;">
+    <div>
+      <div id="legend-container">
+        <div class="legend-label label-top">Safe</div>
+        <div class="legend-label label-bottom">Critical</div>
+        <div id="pointer">
+          <div id="pointer-value">0.00</div>
+        </div>
+      </div>
+    </div>
     <div id="map" style="height: 600px; width: 600px;"></div>
+    <div class="container mt-5" style="width: 50%; margin-top: 0px !important;">
+      <div class="form-container">
+        <h2 class="mb-4">Predict Form</h2>
+        <form id="predictForm">
+          <div class="form-group">
+            <label for="latitude">Latitude</label>
+            <input type="number" class="form-control" id="latitude" name="latitude" placeholder="Enter latitude" step="any" required>
+          </div>
+          <div class="form-group">
+            <label for="longitude">Longitude</label>
+            <input type="number" class="form-control" id="longitude" name="longitude" placeholder="Enter longitude" step="any" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <div class="mt-4">
+        <h4>Commonly Bycaught Fish</h4>
+        <div id="fishButtons">
+          <!-- Fish buttons will be inserted here by JavaScript -->
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {% endblock %}
