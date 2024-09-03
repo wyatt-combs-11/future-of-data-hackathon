@@ -6,8 +6,8 @@ requests
 flask-heroku
 gunicorn
 psycopg2-binary
-pandas~=2.2.2
-numpy~=2.1.0
+pandas
+numpy
 joblib~=1.4.2
-scikit-learn~=1.5.1
-tensorflow~=2.16.2
+scikit-learn
+tensorflow
